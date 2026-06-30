@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "mcp__Claude_Preview__preview_start",
-      "Bash(curl -s -m 8 -o /dev/null -w \"HTTP %{http_code}  size=%{size_download} bytes\\\\n\" http://localhost:4321/)",
-      "Bash(curl -s -m 8 -I http://localhost:4321/index.html)"
-    ]
-  }
-}
