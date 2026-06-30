@@ -1435,49 +1435,132 @@ html:not(.js) .faq-panel{grid-template-rows:1fr}
   /* ---------- SOM AMBIENTE GENERATIVO (Web Audio API) ----------
      Pad suave e relaxante criado por osciladores — sem arquivo externo.
      Mudo por padrão; só inicia após clique (respeita política de autoplay). */
-  (function ambientAudio(){
-    const btn = $("#audioToggle");
-    let ctx=null, master=null, voices=[], lfo=null, playing=false, fadeTimer=null;
-    const NOTES = [146.83, 220.00, 293.66, 349.23, 440.00]; // Ré/Lá — acorde sereno
-    function build(){
-      ctx = new (window.AudioContext||window.webkitAudioContext)();
-      master = ctx.createGain(); master.gain.value = 0; master.connect(ctx.destination);
-      // filtro suave para abafar agudos
-      const filter = ctx.createBiquadFilter(); filter.type="lowpass"; filter.frequency.value=900; filter.Q.value=0.6;
-      filter.connect(master);
-      NOTES.forEach((f,i)=>{
-        const o = ctx.createOscillator(); o.type = i%2? "sine":"triangle"; o.frequency.value=f;
-        const g = ctx.createGain(); g.gain.value = 0.16/(i+1);
-        const pan = ctx.createStereoPanner ? ctx.createStereoPanner() : null;
-        if(pan){ pan.pan.value=(i-2)/3; o.connect(g); g.connect(pan); pan.connect(filter); }
-        else { o.connect(g); g.connect(filter); }
-        o.start(); voices.push({o,g});
-      });
-      // LFO lento para respiração do volume
-      lfo = ctx.createOscillator(); lfo.frequency.value=0.07;
-      const lfoGain = ctx.createGain(); lfoGain.gain.value=0.04;
-      lfo.connect(lfoGain); lfoGain.connect(master.gain); lfo.start();
+/* ---------- SOM AMBIENTE (MP3 + Fade) ---------- */
+
+const btn = document.getElementById("audioToggle");
+const label = btn.querySelector(".lbl");
+
+const ambient = new Audio("ambiente.mp3");
+// Se estiver em assets/audio/, use:
+// const ambient = new Audio("assets/audio/ambiente.mp3");
+
+ambient.loop = true;
+ambient.preload = "auto";
+ambient.volume = 0;
+
+let playing = false;
+let fadeInterval = null;
+
+function fade(target, duration = 1200) {
+    clearInterval(fadeInterval);
+
+    const start = ambient.volume;
+    const stepTime = 50;
+    const steps = duration / stepTime;
+    const step = (target - start) / steps;
+
+    fadeInterval = setInterval(() => {
+        let next = ambient.volume + step;
+
+        if (
+            (step > 0 && next >= target) ||
+            (step < 0 && next <= target)
+        ) {
+            ambient.volume = target;
+            clearInterval(fadeInterval);
+            return;
+        }
+
+        ambient.volume = Math.max(0, Math.min(1, next));
+    }, stepTime);
+}
+
+/* Inicia o som automaticamente no primeiro clique em qualquer lugar da página */
+let started = false;
+
+document.addEventListener("click", async (e) => {
+
+    // Se o clique foi no botão de som, deixa o botão cuidar disso
+    if (e.target.closest("#audioToggle")) return;
+
+    if (started) return;
+
+    started = true;
+    playing = true;
+
+    try {
+        ambient.volume = 0;
+        await ambient.play();
+
+        fade(0.15, 1800);
+
+        btn.classList.add("playing");
+        btn.setAttribute("aria-pressed", "true");
+        label.textContent = "Som: ligado";
+
+    } catch (err) {
+        console.error(err);
     }
-    function fade(target,sec){
-      if(!ctx) return; const now=ctx.currentTime;
-      master.gain.cancelScheduledValues(now);
-      master.gain.setValueAtTime(master.gain.value, now);
-      master.gain.linearRampToValueAtTime(target, now+sec);
+
+}, { once: true });
+
+btn.addEventListener("click", async () => {
+
+    try {
+
+        if (!playing) {
+
+            ambient.volume = 0;
+            await ambient.play();
+
+            fade(0.20, 1800);
+
+            playing = true;
+
+            btn.classList.add("playing");
+            btn.setAttribute("aria-pressed", "true");
+            label.textContent = "Som: ligado";
+
+        } else {
+
+            fade(0, 1000);
+
+            setTimeout(() => {
+                ambient.pause();
+                ambient.currentTime = 0;
+            }, 1000);
+
+            playing = false;
+
+            btn.classList.remove("playing");
+            btn.setAttribute("aria-pressed", "false");
+            label.textContent = "Som ambiente";
+        }
+
+    } catch (err) {
+        console.error(err);
     }
-    btn.addEventListener("click", async ()=>{
-      try{
-        if(!ctx) build();
-        if(ctx.state==="suspended") await ctx.resume();
-        playing = !playing;
-        btn.classList.toggle("playing", playing);
-        btn.setAttribute("aria-pressed", String(playing));
-        $(".lbl",btn).textContent = playing ? "Som: ligado" : "Som ambiente";
-        fade(playing?0.5:0, playing?2.5:1.2);
-      }catch(err){ /* áudio indisponível — ignora silenciosamente */ }
-    });
-    // pausa o som se a aba perder o foco
-    document.addEventListener("visibilitychange", ()=>{ if(document.hidden && playing && ctx){ fade(0,0.6); } else if(!document.hidden && playing && ctx){ fade(0.5,1.5); } });
-  })();
+
+});
+
+/* Pausa quando muda de aba */
+document.addEventListener("visibilitychange", () => {
+
+    if (document.hidden) {
+
+        if (!ambient.paused) {
+            ambient.pause();
+        }
+
+    } else if (playing) {
+
+        ambient.play().then(() => {
+            fade(0.20, 1200);
+        }).catch(() => {});
+
+    }
+
+});
 
   /* ---------- CONTADORES ANIMADOS ---------- */
   function animateCounter(el){
