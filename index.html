@@ -278,11 +278,6 @@ body.nav-open .nav-toggle span::after{top:0;transform:rotate(-45deg)}
   border:2px solid rgba(212,175,106,.55);box-shadow:0 30px 70px -24px rgba(0,0,0,.6),inset 0 0 60px rgba(10,31,25,.4);
   background:linear-gradient(160deg,#1c4a3a,#0e2a22);
 }
-.hero-photo img{width:100%;height:100%;object-fit:cover}
-.scroll-hint{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:#cdd8cf;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;z-index:3}
-.scroll-hint .mouse{width:24px;height:38px;border:1.5px solid rgba(212,175,106,.6);border-radius:14px;position:relative}
-.scroll-hint .mouse::after{content:"";position:absolute;left:50%;top:7px;width:3px;height:7px;background:var(--gold);border-radius:2px;transform:translateX(-50%);animation:wheel 1.8s var(--ease) infinite}
-@keyframes wheel{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}100%{opacity:0;transform:translate(-50%,12px)}}
 
 @media (max-width:920px){
   .hero .container{grid-template-columns:1fr;text-align:center}
@@ -714,12 +709,7 @@ html:not(.js) .faq-panel{grid-template-rows:1fr}
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="scroll-hint" aria-hidden="true">
-      <span class="mouse"></span>
-      <span>Role</span>
-    </div>
+      </div>
   </section>
 
   <!-- ============================================================
