@@ -208,7 +208,8 @@ body::after{
 .brand-name{font-family:var(--font-title);font-size:1.35rem;font-weight:600;line-height:1;color:#f3ecda}
 .brand-name small{display:block;font-family:var(--font-body);font-size:.62rem;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);margin-top:3px;font-weight:500}
 .site-header:not(.scrolled) .brand-name{color:#f3ecda}
-.nav-links{display:flex;align-items:center;gap:30px}
+.nav-links{display:flex;align-items:center;gap:30px;position:fixed;top:0;left:0;right:0;margin-inline:auto;max-width:var(--maxw);padding-inline:clamp(20px,5vw,40px);padding-block:18px;justify-content:flex-end;background:none;box-shadow:none;z-index:1001}
+.nav-close{display:none}
 .nav-links a{position:relative;font-size:.92rem;color:#ffffff;letter-spacing:.02em;font-weight:400;opacity:.9;transition:opacity .3s}
 .site-header:not(.scrolled) .nav-links a{color:#ffffff;text-shadow:0 1px 10px rgba(0,0,0,.4)}
 .nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;height:1.5px;width:100%;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
@@ -227,14 +228,28 @@ body.nav-open .nav-toggle span::after{top:0;transform:rotate(-45deg)}
 @media (max-width:920px){
   .nav-toggle{display:flex}
   .nav-cta{display:none}
+  .nav-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:1050;opacity:0;transition:opacity .4s}
+  body.nav-open .nav-overlay{opacity:1}
+  body.nav-open{overflow:hidden}
   .nav-links{
-    position:fixed;inset:0 0 0 auto;width:min(82vw,360px);flex-direction:column;align-items:flex-start;
-    justify-content:center;gap:26px;padding:40px;background:linear-gradient(160deg,var(--green-900),var(--green-deep));
-    transform:translateX(105%);transition:transform .55s var(--ease);box-shadow:-20px 0 60px -20px rgba(0,0,0,.6);
+    position:fixed;top:0;bottom:0;left:auto;right:0;
+    width:min(82vw,360px);max-width:none;
+    flex-direction:column;align-items:flex-start;
+    justify-content:center;gap:26px;padding:60px 40px 40px;
+    background:linear-gradient(160deg,var(--green-900),var(--green-deep));
+    transform:translateX(105%);transition:transform .55s var(--ease);
+    box-shadow:-20px 0 60px -10px rgba(0,0,0,.8);
     z-index:1100;
   }
   body.nav-open .nav-links{transform:translateX(0)}
-  body.nav-open{overflow:hidden}
+  .nav-close{
+    display:flex;position:absolute;top:20px;right:20px;
+    width:40px;height:40px;border-radius:10px;
+    align-items:center;justify-content:center;
+    color:var(--gold-light);background:rgba(212,175,106,.12);
+    border:1px solid rgba(212,175,106,.25);cursor:pointer;
+  }
+  .nav-close svg{width:20px;height:20px}
   .nav-links a{font-size:1.3rem;font-family:var(--font-title)}
   .nav-links .btn{display:inline-flex;margin-top:10px}
 }
@@ -601,6 +616,9 @@ html:not(.js) .faq-panel{grid-template-rows:1fr}
 <!-- Barra de progresso -->
 <div class="scroll-progress" id="progress" aria-hidden="true"></div>
 
+<!-- Overlay mobile nav -->
+<div class="nav-overlay" id="navOverlay" aria-hidden="true"></div>
+
 <!-- Cursor custom (desktop) -->
 <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
 <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
@@ -620,19 +638,22 @@ html:not(.js) .faq-panel{grid-template-rows:1fr}
       <span class="brand-name">Carla Herrera<small>Psicóloga</small></span>
     </a>
 
-    <nav class="nav-links" id="navLinks" aria-label="Navegação principal">
-      <a href="#sobre">Sobre</a>
-      <a href="#pilares">Pilares</a>
-      <a href="#teoria">Teoria Junguiana</a>
-      <a href="#servicos">Serviços</a>
-      <a href="#faq">Dúvidas</a>
-      <a href="#contato">Contato</a>
-      <a class="btn btn-primary" href="https://wa.me/5511963487353" target="_blank" rel="noopener">Agende agora</a>
-    </nav>
-
     <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navLinks"><span></span></button>
   </div>
 </header>
+
+<nav class="nav-links" id="navLinks" aria-label="Navegação principal">
+  <button class="nav-close" id="navClose" aria-label="Fechar menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <a href="#sobre">Sobre</a>
+  <a href="#pilares">Pilares</a>
+  <a href="#teoria">Teoria Junguiana</a>
+  <a href="#servicos">Serviços</a>
+  <a href="#faq">Dúvidas</a>
+  <a href="#contato">Contato</a>
+  <a class="btn btn-primary" href="https://wa.me/5511963487353" target="_blank" rel="noopener">Agende agora</a>
+</nav>
 
 <main id="main">
 
@@ -1309,13 +1330,22 @@ html:not(.js) .faq-panel{grid-template-rows:1fr}
   onScrollHeader(); window.addEventListener("scroll", onScrollHeader, {passive:true});
 
   /* ---------- MENU MOBILE ---------- */
-  const navToggle = $("#navToggle"), navLinks = $("#navLinks");
-  const closeNav = ()=>{ document.body.classList.remove("nav-open"); navToggle.setAttribute("aria-expanded","false"); navToggle.setAttribute("aria-label","Abrir menu"); };
-  navToggle.addEventListener("click", ()=>{
-    const open = document.body.classList.toggle("nav-open");
-    navToggle.setAttribute("aria-expanded", String(open));
-    navToggle.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
-  });
+  const navToggle = $("#navToggle"), navLinks = $("#navLinks"), navOverlay = $("#navOverlay"), navClose = $("#navClose");
+  const closeNav = ()=>{
+    document.body.classList.remove("nav-open");
+    navToggle.setAttribute("aria-expanded","false");
+    navToggle.setAttribute("aria-label","Abrir menu");
+    navOverlay.style.display = "";
+  };
+  const openNav = ()=>{
+    document.body.classList.add("nav-open");
+    navOverlay.style.display = "block";
+    navToggle.setAttribute("aria-expanded","true");
+    navToggle.setAttribute("aria-label","Fechar menu");
+  };
+  navToggle.addEventListener("click", ()=>{ document.body.classList.contains("nav-open") ? closeNav() : openNav(); });
+  navClose.addEventListener("click", closeNav);
+  navOverlay.addEventListener("click", closeNav);
   $$("#navLinks a").forEach(a=> a.addEventListener("click", closeNav));
   document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeNav(); });
 
