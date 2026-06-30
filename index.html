@@ -195,12 +195,17 @@ body::after{
 .nav{display:flex;align-items:center;justify-content:space-between;gap:24px}
 .brand{display:flex;align-items:center;gap:12px;color:var(--gold-light)}
 .brand .brand-mark{width:46px;height:46px;flex:none}
-/* Logo real (logo.png). Aparece quando o arquivo existe; senão, fallback SVG+texto.
-   Chip claro garante leitura do logo (transparente ou com fundo branco) sobre o header escuro. */
-.brand-logo{height:150px;width:auto;display:none;border-radius:14px;padding:5px 10px;}
-.brand.has-logo .brand-logo{display:block}
-.brand.has-logo .brand-mark,.brand.has-logo .brand-name{display:none}
-.footer .brand-logo{height:60px}
+.brand-logo{
+    height:70px;
+    width:auto;
+    display:block;
+    flex-shrink:0;
+    margin-left: 90px;
+}
+
+.brand-mark{
+    display:none;
+}.footer .brand-logo{height:60px}
 .brand-name{font-family:var(--font-title);font-size:1.35rem;font-weight:600;line-height:1;color:#f3ecda}
 .brand-name small{display:block;font-family:var(--font-body);font-size:.62rem;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);margin-top:3px;font-weight:500}
 .site-header:not(.scrolled) .brand-name{color:#f3ecda}
@@ -610,39 +615,11 @@ html:not(.js) .faq-panel{grid-template-rows:1fr}
 <header class="site-header" id="header">
   <div class="container nav">
     <a class="brand" href="#inicio" aria-label="Carla Herrera - Psicóloga, ir ao início">
-      <!-- LOGO REAL: salve "logo.png" na pasta e ele aparece aqui automaticamente.
-           Enquanto o arquivo não existir, mostramos o logo SVG (lua + árvore) + texto. -->
-      <img class="brand-logo" src="logo.png" alt="Carla Herrera — Psicóloga"
-           onload="this.closest('.brand').classList.add('has-logo')"
-           onerror="this.remove()" />
+
+      <img class="brand-logo" src="logo.png" alt="Carla Herrera — Psicóloga">
+           
       <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 100 100" width="46" height="46" role="img">
-          <defs>
-            <linearGradient id="gMoon" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#f3e6bd"/><stop offset=".5" stop-color="#d8b870"/><stop offset="1" stop-color="#b8924a"/>
-            </linearGradient>
-          </defs>
-          <!-- Lua crescente dourada abraçando a árvore -->
-          <path d="M72 9a44 44 0 1 0 6 82 35 35 0 1 1-6-82z" fill="url(#gMoon)"/>
-          <!-- Tronco e galhos (árvore da vida) -->
-          <g stroke="#2c5e3f" stroke-width="2.6" fill="none" stroke-linecap="round">
-            <path d="M53 84V44"/>
-            <path d="M53 50c-7-3-11-9-12-17M53 50c7-3 11-9 12-17"/>
-            <path d="M53 62c-8-3-13-9-14-18M53 62c8-3 13-9 14-18"/>
-            <path d="M53 72c-6-2-10-7-11-13M53 72c6-2 10-7 11-13"/>
-          </g>
-          <!-- Folhas (verde + dourado) -->
-          <g>
-            <ellipse cx="40" cy="31" rx="4.2" ry="2.5" fill="#3f7d4f" transform="rotate(-32 40 31)"/>
-            <ellipse cx="66" cy="31" rx="4.2" ry="2.5" fill="#3f7d4f" transform="rotate(32 66 31)"/>
-            <ellipse cx="38" cy="42" rx="3.8" ry="2.3" fill="#5e7d6a" transform="rotate(-40 38 42)"/>
-            <ellipse cx="68" cy="42" rx="3.8" ry="2.3" fill="#d4af6a" transform="rotate(40 68 42)"/>
-            <ellipse cx="42" cy="56" rx="3.4" ry="2.1" fill="#d4af6a" transform="rotate(-42 42 56)"/>
-            <ellipse cx="64" cy="56" rx="3.4" ry="2.1" fill="#5e7d6a" transform="rotate(42 64 56)"/>
-            <ellipse cx="53" cy="36" rx="3.8" ry="2.4" fill="#3f7d4f"/>
-            <circle cx="53" cy="29" r="2.6" fill="#d4af6a"/>
-          </g>
-        </svg>
+
       </span>
       <span class="brand-name">Carla Herrera<small>Psicóloga</small></span>
     </a>
