@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://landing-page-psi-gamma.vercel.app/
+Sitemap: https://psicologacarlaherrera.vercel.app/
