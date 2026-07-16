@@ -180,7 +180,7 @@ body::after{
 .nav-links a:hover::after{transform:scaleX(1)}
 .nav-cta{display:inline-flex}
 .nav .btn{padding:.7em 1.4em;font-size:.9rem}
-.nav .btn-primary{color:#ffffff}
+.nav .btn-primary,.nav-links .btn-primary{color:#ffffff}
 .nav-toggle{display:none;width:46px;height:46px;border-radius:12px;align-items:center;justify-content:center;color:var(--gold-deep);background:rgba(212,175,106,.12);border:1px solid rgba(212,175,106,.35)}
 .nav-toggle span{position:relative;width:22px;height:2px;background:currentColor;border-radius:2px;transition:.35s var(--ease)}
 .nav-toggle span::before,.nav-toggle span::after{content:"";position:absolute;left:0;width:22px;height:2px;background:currentColor;border-radius:2px;transition:.35s var(--ease)}
