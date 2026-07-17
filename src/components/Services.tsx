@@ -52,8 +52,8 @@ const services: Service[] = [
         <circle cx="12" cy="10" r="1.6" />
       </svg>
     ),
-    title: 'Psicoterapia Infantil e para Adolescentes',
-    text: 'Apoio emocional e comportamental adaptado ao desenvolvimento de crianças e adolescentes.',
+    title: 'Psicoterapia Infantil',
+    text: 'Apoio emocional e comportamental adaptado ao desenvolvimento das crianças.',
   },
   {
     icon: (
@@ -76,13 +76,12 @@ const services: Service[] = [
   },
   {
     icon: (
-      <svg viewBox="0 0 24 24" {...S} strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-        <path d="M14 2v6h6" /><path d="M16 13H8" /><path d="M16 17H8" /><path d="M10 9H8" />
+      <svg viewBox="0 0 24 24" {...S}>
+        <circle cx="12" cy="8" r="4" /><path d="M5 21c0-4 3-7 7-7s7 3 7 7" /><path d="m15 3 1 1 2-2" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
-    title: 'Avaliação Psicológica para Laudos',
-    text: 'Realização de avaliações psicológicas para emissão de laudos, pareceres e documentos técnicos.',
+    title: 'Psicoterapia para Adolescentes',
+    text: 'Apoio emocional e comportamental adaptado ao desenvolvimento dos adolescentes.',
   },
 ]
 
