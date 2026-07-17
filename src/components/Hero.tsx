@@ -242,7 +242,7 @@ export default function Hero() {
               <circle cx="200" cy="200" r="58" fill="none" stroke="url(#mg)" strokeWidth="1.4" opacity=".9" />
             </svg>
             <div className="hero-photo">
-              <img src="/carla.png" alt="" loading="eager" />
+              <img src="/arvore-da-vida.png" alt="" loading="eager" />
             </div>
           </div>
         </div>
