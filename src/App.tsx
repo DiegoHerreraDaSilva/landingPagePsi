@@ -11,6 +11,7 @@ import Transform from './components/Transform'
 import Faq from './components/Faq'
 import Footer from './components/Footer'
 import Floating from './components/Floating'
+import Butterflies from './components/Butterflies'
 import CursorAndProgress from './components/CursorAndProgress'
 import { useReveal } from './hooks/useReveal'
 import { useSmoothScroll } from './hooks/useSmoothScroll'
@@ -43,6 +44,7 @@ export default function App() {
 
       <Footer />
       <Floating />
+      <Butterflies />
     </>
   )
 }
