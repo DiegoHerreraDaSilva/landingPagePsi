@@ -56,14 +56,19 @@ export default function Theory() {
           </div>
         </div>
         <div className="theory-side">
-          <figure className="quote-card" data-reveal>
-            <span className="mark" aria-hidden="true">
-              &ldquo;
-            </span>
-            <blockquote>Não somos aquilo que nos acontece, somos aquilo que escolhemos nos tornar.</blockquote>
-            <cite>— Inspirado em C. G. Jung</cite>
+          <figure className="tree-figure" data-reveal>
+            <img src="/carla.png" alt="Carla Herrera, psicóloga" loading="lazy" />
           </figure>
         </div>
+      </div>
+      <div className="container" style={{ marginTop: 'clamp(32px,5vw,56px)' }}>
+        <figure className="quote-card" data-reveal>
+          <span className="mark" aria-hidden="true">
+            &ldquo;
+          </span>
+          <blockquote>Não somos aquilo que nos acontece, somos aquilo que escolhemos nos tornar.</blockquote>
+          <cite>— Inspirado em C. G. Jung</cite>
+        </figure>
       </div>
     </section>
   )
