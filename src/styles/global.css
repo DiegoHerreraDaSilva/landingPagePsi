@@ -347,7 +347,7 @@ body.nav-open .nav-toggle span::after{top:0;transform:rotate(-45deg)}
   transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .5s var(--ease);z-index:4;
 }
 .pillar-card:hover{transform:translateY(-8px) scale(1.04);box-shadow:var(--shadow-gold);border-color:var(--gold)}
-.pillar-card .pico{width:46px;height:46px;margin:0 auto 10px;color:var(--gold-deep)}
+.pillar-card .pico{display:grid;place-items:center;width:46px;height:46px;margin:0 auto 10px;color:var(--gold-deep)}
 .pillar-card h3{font-size:1.5rem;color:var(--green-800)}
 .pillar-card p{font-size:.82rem;color:#5a6b60;margin:.35rem 0 0}
 /* posições do ciclo (desktop) */

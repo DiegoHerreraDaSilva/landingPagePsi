@@ -1,3 +1,4 @@
+import { Globe, Home, Mail, MapPin } from 'lucide-react'
 import { WHATSAPP_URL } from '../constants'
 import { WhatsAppIcon } from './icons'
 
@@ -40,10 +41,7 @@ export default function Footer() {
                 href="mailto:psicarlaherrera@gmail.com?subject=Agendamento%20de%20Consulta&body=Olá%2C%20Carla!%20Encontrei%20seu%20site%20e%20gostaria%20de%20agendar%20uma%20consulta.%20Poderia%20me%20informar%20sua%20disponibilidade%3F%0A%0AObrigado(a)!"
                 aria-label="E-mail"
               >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                  <rect x="3" y="5" width="18" height="14" rx="2" />
-                  <path d="m4 7 8 6 8-6" />
-                </svg>
+                <Mail aria-hidden="true" />
               </a>
             </div>
           </div>
@@ -51,10 +49,7 @@ export default function Footer() {
           <div data-reveal>
             <h4>Contato</h4>
             <div className="contact-line">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                <path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z" />
-                <circle cx="12" cy="10" r="2.5" />
-              </svg>
+              <MapPin aria-hidden="true" />
               <span>
                 Rua Atlântica, 50 — Jardim do Mar
                 <br />
@@ -69,18 +64,10 @@ export default function Footer() {
             </div>
             <div className="modes" style={{ marginTop: 14 }}>
               <span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="9" />
-                  <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" />
-                </svg>{' '}
-                Online
+                <Globe aria-hidden="true" /> Online
               </span>
               <span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M4 21V9l8-6 8 6v12z" strokeLinejoin="round" />
-                  <path d="M10 21v-6h4v6" />
-                </svg>{' '}
-                Presencial
+                <Home aria-hidden="true" /> Presencial
               </span>
             </div>
           </div>

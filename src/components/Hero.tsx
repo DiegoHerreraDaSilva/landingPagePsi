@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { CircleCheck, Globe, ShieldCheck } from 'lucide-react'
 import { prefersReduced, isFinePointer, isMobile } from '../hooks/useMedia'
 
 /** Hero: título palavra a palavra, partículas douradas e mandala com parallax de mouse. */
@@ -179,24 +180,13 @@ export default function Hero() {
           </div>
           <div className="hero-trust" data-reveal>
             <span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M12 2 4 5v6c0 5 3.4 8.6 8 11 4.6-2.4 8-6 8-11V5z" strokeLinejoin="round" />
-              </svg>{' '}
-              Ética &amp; Sigilo
+              <ShieldCheck aria-hidden="true" /> Ética &amp; Sigilo
             </span>
             <span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="9" />
-                <path d="m8 12 3 3 5-6" />
-              </svg>{' '}
-              CRP 06/5859-1
+              <CircleCheck aria-hidden="true" /> CRP 06/5859-1
             </span>
             <span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" />
-                <circle cx="12" cy="12" r="9" />
-              </svg>{' '}
-              Online &amp; Presencial
+              <Globe aria-hidden="true" /> Online &amp; Presencial
             </span>
           </div>
         </div>

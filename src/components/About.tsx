@@ -1,3 +1,4 @@
+import { Leaf } from 'lucide-react'
 import { WHATSAPP_URL } from '../constants'
 import { WhatsAppIcon } from './icons'
 
@@ -19,14 +20,7 @@ export default function About() {
             />
           </div>
           <span className="leaf-accent" aria-hidden="true">
-            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M32 58V20" strokeLinecap="round" />
-              <path
-                d="M32 34c-9-2-15-9-16-19 10 1 17 7 16 19zM32 28c8-2 14-8 15-17-9 1-16 7-15 17z"
-                fill="currentColor"
-                fillOpacity=".15"
-              />
-            </svg>
+            <Leaf style={{ width: '100%', height: '100%' }} strokeWidth={1.5} />
           </span>
           <div className="badge">
             <b>1997</b>
