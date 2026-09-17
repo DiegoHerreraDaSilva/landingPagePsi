@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://psicologacarlaherrera.vercel.app/sitemap.xml
+Sitemap: https://www.psicologacarlaherrera.com.br/sitemap.xml
