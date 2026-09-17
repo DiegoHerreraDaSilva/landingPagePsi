@@ -160,10 +160,11 @@ export default function Hero() {
             Psicologia Junguiana · Acolhimento Humanizado
           </span>
           <h1 data-hero-title>
-            <span className="word">Carla</span> <span className="word">Herrera</span>
+            <span className="word">Espaço</span> <span className="word">Carla</span>{' '}
+            <span className="word">Herrera</span>
             <span className="accent">
-              <span className="word">Bem-Estar</span> <span className="word">e</span>{' '}
-              <span className="word">Equilíbrio</span> <span className="word">Mental</span>
+              <span className="word">psicologia</span> <span className="word">e</span>{' '}
+              <span className="word">desenvolvimento</span> <span className="word">humano</span>
             </span>
           </h1>
           <p className="kicker" data-reveal>
