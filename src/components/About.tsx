@@ -9,7 +9,14 @@ export default function About() {
         {/* Foto retrato com moldura dourada orgânica */}
         <div className="portrait-frame" data-reveal data-parallax="0.12">
           <div className="photo">
-            <img src="/carla.jpg" alt="Carla Herrera, psicóloga, em seu consultório" loading="lazy" />
+            <img
+              src="/carla.jpg"
+              alt="Carla Herrera, psicóloga, em seu consultório"
+              width={1600}
+              height={1323}
+              decoding="async"
+              loading="lazy"
+            />
           </div>
           <span className="leaf-accent" aria-hidden="true">
             <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2">

@@ -6,53 +6,36 @@ import { WhatsAppFullIcon } from './icons'
 export default function Floating() {
   const [playing, setPlaying] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
-  const fadeRef = useRef<number | null>(null)
+  const fadeRef = useRef<((target: number, duration?: number) => void) | null>(null)
+  const intervalRef = useRef<number | null>(null)
   const playingRef = useRef(false)
-  const startedRef = useRef(false)
 
   useEffect(() => {
     const ambient = new Audio('/ambiente.mp3')
     ambient.loop = true
-    ambient.preload = 'auto'
+    ambient.preload = 'none'
     ambient.volume = 0
     audioRef.current = ambient
 
     const fade = (target: number, duration = 1200) => {
-      if (fadeRef.current) clearInterval(fadeRef.current)
+      if (intervalRef.current) clearInterval(intervalRef.current)
       const start = ambient.volume
       const stepTime = 50
       const steps = duration / stepTime
       const step = (target - start) / steps
-      fadeRef.current = window.setInterval(() => {
+      intervalRef.current = window.setInterval(() => {
         const next = ambient.volume + step
         if ((step > 0 && next >= target) || (step < 0 && next <= target)) {
           ambient.volume = target
-          if (fadeRef.current) clearInterval(fadeRef.current)
+          if (intervalRef.current) clearInterval(intervalRef.current)
           return
         }
         ambient.volume = Math.max(0, Math.min(1, next))
       }, stepTime)
     }
-    ;(ambient as HTMLAudioElement & { _fade?: typeof fade })._fade = fade
+    fadeRef.current = fade
 
-    // Inicia o som automaticamente no primeiro clique em qualquer lugar da página
-    const onFirstClick = async (e: MouseEvent) => {
-      if ((e.target as HTMLElement).closest('#audioToggle')) return
-      if (startedRef.current) return
-      startedRef.current = true
-      playingRef.current = true
-      try {
-        ambient.volume = 0
-        await ambient.play()
-        fade(0.15, 1800)
-        setPlaying(true)
-      } catch (err) {
-        console.error(err)
-      }
-    }
-    document.addEventListener('click', onFirstClick, { once: true })
-
-    // Pausa quando muda de aba
+    // Pausa quando muda de aba (só se o som foi iniciado pelo usuário)
     const onVisibility = () => {
       if (document.hidden) {
         if (!ambient.paused) ambient.pause()
@@ -66,9 +49,8 @@ export default function Floating() {
     document.addEventListener('visibilitychange', onVisibility)
 
     return () => {
-      document.removeEventListener('click', onFirstClick)
       document.removeEventListener('visibilitychange', onVisibility)
-      if (fadeRef.current) clearInterval(fadeRef.current)
+      if (intervalRef.current) clearInterval(intervalRef.current)
       ambient.pause()
     }
   }, [])
@@ -76,17 +58,15 @@ export default function Floating() {
   const toggle = async () => {
     const ambient = audioRef.current
     if (!ambient) return
-    const fade = (ambient as HTMLAudioElement & { _fade?: (t: number, d?: number) => void })._fade
     try {
       if (!playingRef.current) {
         ambient.volume = 0
         await ambient.play()
-        fade?.(0.2, 1800)
+        fadeRef.current?.(0.2, 1800)
         playingRef.current = true
-        startedRef.current = true
         setPlaying(true)
       } else {
-        fade?.(0, 1000)
+        fadeRef.current?.(0, 1000)
         setTimeout(() => {
           ambient.pause()
           ambient.currentTime = 0

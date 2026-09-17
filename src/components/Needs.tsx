@@ -132,17 +132,39 @@ const col2: Need[] = [
   },
 ]
 
-function AccItem({ need, open, onToggle }: { need: Need; open: boolean; onToggle: () => void }) {
+function AccItem({
+  need,
+  id,
+  open,
+  onToggle,
+}: {
+  need: Need
+  id: string
+  open: boolean
+  onToggle: () => void
+}) {
   return (
     <div className={open ? 'acc-item open' : 'acc-item'}>
-      <button className="acc-trigger" aria-expanded={open} onClick={onToggle}>
+      <button
+        className="acc-trigger"
+        id={`${id}-trigger`}
+        aria-expanded={open}
+        aria-controls={`${id}-panel`}
+        onClick={onToggle}
+      >
         <span className="ic" aria-hidden="true">{need.icon}</span>
         <span className="txt">{need.title}</span>
         <svg className="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
           <path d="m6 9 6 6 6-6" />
         </svg>
       </button>
-      <div className="acc-panel">
+      <div
+        className="acc-panel"
+        id={`${id}-panel`}
+        role="region"
+        aria-labelledby={`${id}-trigger`}
+        aria-hidden={!open}
+      >
         <div className="inner">
           <p>{need.text}</p>
         </div>
@@ -175,10 +197,11 @@ export default function Needs() {
         <div className="acc-cols" id="needsAcc">
           {[col1, col2].map((col, c) => (
             <div className="acc-col" key={c}>
-              {col.map(need => (
+              {col.map((need, i) => (
                 <AccItem
                   key={need.title}
                   need={need}
+                  id={`need-${c}-${i}`}
                   open={open.has(need.title)}
                   onToggle={() => toggle(need.title)}
                 />

@@ -4,7 +4,14 @@ export default function Transform() {
     <section className="section transform" id="transformacao">
       <div className="container grid">
         <div className="room" data-reveal data-parallax="0.1">
-          <img src="/consultorio.jpg" alt="Ambiente acolhedor do consultório de Carla Herrera" loading="lazy" />
+          <img
+            src="/consultorio.jpg"
+            alt="Ambiente acolhedor do consultório de Carla Herrera"
+            width={1194}
+            height={1600}
+            decoding="async"
+            loading="lazy"
+          />
         </div>
         <div data-reveal>
           <span className="eyebrow">Sua transformação</span>

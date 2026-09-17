@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="top">
           <div data-reveal>
             <a className="brand" href="#inicio" aria-label="Carla Herrera">
-              <img className="brand-logo" src="/logo.png" alt="Carla Herrera — Psicóloga" />
+              <img className="brand-logo" src="/logo.png" alt="Carla Herrera — Psicóloga" width={310} height={282} decoding="async" />
               <span className="brand-name">
                 Carla Herrera<small>Psicóloga</small>
               </span>

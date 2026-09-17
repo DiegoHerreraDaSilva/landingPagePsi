@@ -42,7 +42,7 @@ export default function Header() {
       <header className={scrolled ? 'site-header scrolled' : 'site-header'} id="header">
         <div className="container nav">
           <a className="brand" href="#inicio" aria-label="Carla Herrera - Psicóloga, ir ao início">
-            <img className="brand-logo" src="/logo.png" alt="Carla Herrera — Psicóloga" />
+            <img className="brand-logo" src="/logo.png" alt="Carla Herrera — Psicóloga" width={310} height={282} decoding="async" />
             <span className="brand-name">
               Carla Herrera<small>Psicóloga</small>
             </span>

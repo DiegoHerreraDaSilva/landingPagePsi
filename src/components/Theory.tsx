@@ -57,7 +57,14 @@ export default function Theory() {
         </div>
         <div className="theory-side">
           <figure className="tree-figure" data-reveal>
-            <img src="/carla.png" alt="Carla Herrera, psicóloga" loading="lazy" />
+            <img
+              src="/carla.png"
+              alt="Carla Herrera, psicóloga"
+              width={1020}
+              height={1280}
+              decoding="async"
+              loading="lazy"
+            />
           </figure>
         </div>
       </div>

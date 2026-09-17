@@ -78,13 +78,21 @@ export default function Faq() {
               <div className={open ? 'faq-item open' : 'faq-item'} key={f.q}>
                 <button
                   className="faq-trigger"
+                  id={`faq-${i}-trigger`}
                   aria-expanded={open}
+                  aria-controls={`faq-${i}-panel`}
                   onClick={() => setOpenIndex(open ? null : i)}
                 >
                   <span className="q">{f.q}</span>
                   <span className="plus" aria-hidden="true"></span>
                 </button>
-                <div className="faq-panel">
+                <div
+                  className="faq-panel"
+                  id={`faq-${i}-panel`}
+                  role="region"
+                  aria-labelledby={`faq-${i}-trigger`}
+                  aria-hidden={!open}
+                >
                   <div className="inner">
                     <p>{f.a}</p>
                   </div>
